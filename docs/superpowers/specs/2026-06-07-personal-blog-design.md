@@ -26,14 +26,21 @@
 
 ## 架構
 
+（2026-06-07 修正：以 AstroPaper **v6.1.0** 實際結構為準，Astro 6、Node ≥ 22.12、npm）
+
 ```
-~/Dev/blog/                  ← post-to-blog skill 預期的位置
+~/Dev/blog/                       ← post-to-blog skill 預期的位置
 ├── src/
-│   ├── data/blog/           ← 文章 markdown（content collection）
-│   ├── assets/              ← 文章圖片（WebP）
-│   └── config.ts            ← 站台設定（站名、作者、社群連結）
-└── ...AstroPaper 主題結構（Astro 5、TypeScript、Tailwind）
+│   ├── content/posts/            ← 文章 markdown（content collection）
+│   ├── content/pages/            ← 靜態頁（about 等）
+│   ├── assets/images/            ← 文章圖片（WebP）
+│   ├── i18n/                     ← 介面字串（中文化目標）
+│   └── layouts/PostLayout.astro  ← 文章頁 layout（giscus 嵌入點）
+├── astro-paper.config.ts         ← 站台設定（站名、作者、語系、社群連結）
+└── ...AstroPaper 主題結構（TypeScript、Tailwind 4）
 ```
+
+站名暫定 **Kim's Blog**（作者 Kim Huang），之後可改一行設定換名。
 
 - 版本控制：GitHub **公開** repo（giscus 留言需要公開 repo 開 Discussions）
 - 部署：push 到 GitHub → Cloudflare Pages 自動建置上線（`xxx.pages.dev`）
@@ -47,7 +54,7 @@
 
 首頁照時間混排；分眾閱讀靠 tag 頁。
 
-frontmatter 與 `post-to-blog` skill 的 schema 對齊：`title`、`description`、`pubDate`、`heroImage`、`tags`。slug 用英文 kebab-case（意譯，不用拼音）。
+frontmatter 以 AstroPaper v6 的 collection schema 為準：`title`、`description`、`pubDatetime`、`tags`（選用 `ogImage`、`featured`、`draft`）。`post-to-blog` skill 本來就規定「先讀 schema 再寫」，相容。slug 用英文 kebab-case（意譯，不用拼音）。
 
 ## 中文化
 
