@@ -74,8 +74,19 @@ frontmatter 與 `post-to-blog` skill 的 schema 對齊：`title`、`description`
 - 本地：`npm run dev` 預覽、`npm run build` 零錯誤
 - 上線後端到端驗證：用一篇真實文章跑完整產線（寫作 → `post-to-blog` 發佈 → `post-to-social` 備稿）
 
+## Medium 聯播（第二期）
+
+方向：Blog → Medium 聯播（文章先發 blog，再同步到 Medium）。
+
+- Medium 已於 2025-01-01 停發新 API integration token，全自動 API 發佈不可行
+- 採用 Medium 官方「Import a story」工具：貼上 blog 文章網址匯入，**自動設定 canonical 連結**指回 blog（SEO 保護內建）
+- 第二期建 `post-to-medium` skill：用瀏覽器自動化（browser MCP）代操匯入流程，使用者做最後確認
+- 對 blog 本體影響為零 — 只需文章有公開網址與正確 metadata（AstroPaper 內建）
+- 出版部最終產線：寫作 → `post-to-blog` → `post-to-medium` → `post-to-social`
+
 ## 第二期（暫不實作）
 
 - 電子報訂閱
 - 自訂網域
 - 中英雙語（i18n）
+- `post-to-medium` skill（見上節）
