@@ -33,50 +33,41 @@ const homePath = getRelativeLocaleUrl(locale, "");
     data-home-path={homePath}
     class="app-layout"
   >
-    <section id="hero" class="border-border border-b pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
-      </h1>
-      <a
-        target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
-        class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
-      >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
-      </a>
+    <section id="hero" class="starry-hero border-border mb-2 border-b">
+      <div class="starry-hero__inner">
+        <div class="flex items-center gap-x-3">
+          <h1 class="text-4xl font-bold sm:text-5xl">
+            {config.site.title}
+          </h1>
+          <a
+            target="_blank"
+            href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
+            class="inline-block"
+            aria-label="RSS Feed"
+            title="RSS Feed"
+          >
+            <IconRss
+              width={20}
+              height={20}
+              class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
+            />
+            <span class="sr-only">RSS Feed</span>
+          </a>
+        </div>
 
-      <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
-      </p>
-      <p class="mt-2">
-        Read the blog posts or check
-        <LinkButton
-          class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton> for more info.
-      </p>
-      {
-        socials.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
-              {t.home.socialLinks}:
+        <p class="mt-4 text-lg">{t.home.heroTagline}</p>
+
+        {
+          socials.length > 0 && (
+            <div class="mt-5 flex max-sm:flex-col sm:items-center">
+              <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
+                {t.home.socialLinks}:
+              </div>
+              <Socials />
             </div>
-            <Socials />
-          </div>
-        )
-      }
+          )
+        }
+      </div>
     </section>
 
     {
@@ -135,3 +126,34 @@ const homePath = getRelativeLocaleUrl(locale, "");
     }
   });
 </script>
+
+<style>
+  /* 星空橫幅：深藍漸層底 + 純 CSS 星點，零額外圖檔 */
+  .starry-hero {
+    border-radius: 0.75rem;
+    background:
+      radial-gradient(1.5px 1.5px at 18% 32%, var(--foreground) 50%, transparent 51%),
+      radial-gradient(1px 1px at 52% 18%, var(--foreground) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 76% 44%, var(--foreground) 50%, transparent 51%),
+      radial-gradient(1px 1px at 34% 66%, var(--foreground) 50%, transparent 51%),
+      radial-gradient(1px 1px at 88% 72%, var(--foreground) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 64% 82%, var(--accent) 50%, transparent 51%),
+      linear-gradient(160deg, var(--muted) 0%, var(--background) 70%);
+    background-repeat: no-repeat;
+  }
+  .starry-hero__inner {
+    padding: 2.5rem 1.75rem 2rem;
+  }
+  /* 淺色模式：星點過亮會雜，降低存在感、保留淡藍漸層 */
+  :global([data-theme="light"]) .starry-hero {
+    background:
+      radial-gradient(1.5px 1.5px at 64% 82%, var(--accent) 50%, transparent 51%),
+      linear-gradient(160deg, var(--muted) 0%, var(--background) 75%);
+    background-repeat: no-repeat;
+  }
+  @media (max-width: 640px) {
+    .starry-hero__inner {
+      padding: 2rem 1.25rem 1.5rem;
+    }
+  }
+</style>
