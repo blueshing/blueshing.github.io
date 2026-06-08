@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Datetime from "@/components/Datetime.astro";
 import Comments from "@/components/Comments.astro";
+import xiaoxingAvatar from "@/assets/images/xiaoxing-avatar.webp";
 import Tag from "@/components/Tag.astro";
 import { getPostSlug, getPostUrl } from "@/utils/getPostPaths";
 import { getSortedPosts } from "@/utils/getSortedPosts";
@@ -70,7 +71,10 @@ const {
   timezone,
   tags,
   hideEditPost,
+  author,
 } = post.data;
+
+const isXiaoxing = author === "藍小星";
 
 const { Content } = await render(post);
 
@@ -118,6 +122,23 @@ const ogImage = ogImageUrl
     >
       {title}
     </h1>
+
+    {
+      isXiaoxing && (
+        <div class="mt-3 flex items-center gap-2">
+          <img
+            src={xiaoxingAvatar.src}
+            alt="藍小星"
+            width="28"
+            height="28"
+            class="border-border rounded-full border"
+            loading="lazy"
+          />
+          <span class="text-foreground text-sm font-medium">{author}</span>
+          <span class="text-muted-foreground text-sm">AI 助手</span>
+        </div>
+      )
+    }
 
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
